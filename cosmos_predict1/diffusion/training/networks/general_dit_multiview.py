@@ -55,7 +55,7 @@ class MultiviewGeneralDIT(GeneralDIT):
         del self.blocks
         self.blocks = nn.ModuleDict()
 
-        layer_mask = [False] * self.num_blocks if kwargs["layer_mask"] is None else kwargs["layer_mask"]
+        layer_mask = [False] * self.num_blocks if ('layer_mask' not in kwargs or kwargs["layer_mask"] is None) else kwargs["layer_mask"]
         assert (
             len(layer_mask) == self.num_blocks
         ), f"Layer mask length {len(layer_mask)} does not match num_blocks {self.num_blocks}"
@@ -68,7 +68,7 @@ class MultiviewGeneralDIT(GeneralDIT):
                 num_heads=self.num_heads,
                 block_config=self.block_config,
                 window_sizes=(
-                    kwargs["window_sizes"] if idx in kwargs["window_block_indexes"] else []
+                    kwargs["window_sizes"] if ('window_block_indexes' in kwargs and idx in kwargs["window_block_indexes"]) else []
                 ),  # There will be bug if using "WA-CA-MLP"
                 mlp_ratio=kwargs["mlp_ratio"],
                 spatial_attn_win_size=kwargs["spatial_attn_win_size"],
