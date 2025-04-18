@@ -70,9 +70,9 @@ class MultiviewGeneralDIT(GeneralDIT):
                 window_sizes=(
                     kwargs["window_sizes"] if ('window_block_indexes' in kwargs and idx in kwargs["window_block_indexes"]) else []
                 ),  # There will be bug if using "WA-CA-MLP"
-                mlp_ratio=kwargs["mlp_ratio"],
-                spatial_attn_win_size=kwargs["spatial_attn_win_size"],
-                temporal_attn_win_size=kwargs["temporal_attn_win_size"],
+                mlp_ratio=(kwargs["mlp_ratio"] if 'mlp_ratio' in kwargs else 4.0),
+                spatial_attn_win_size=(kwargs["spatial_attn_win_size"] if 'spatial_attn_win_size' in kwargs else 1),
+                temporal_attn_win_size=(kwargs["temporal_attn_win_size"] if 'temporal_attn_win_size' in kwargs else 1),
                 x_format=self.block_x_format,
                 use_adaln_lora=self.use_adaln_lora,
                 adaln_lora_dim=self.adaln_lora_dim,
